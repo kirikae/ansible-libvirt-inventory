@@ -19,7 +19,7 @@ else:
 
         print('DOMAIN: ' + domain.name())
         ifaces = domain.interfaceAddresses(0) # Currently only retieves first IP, not all...
-        for (name, val) in ifaces.iteritems():
+        for (name, val) in ifaces.items():
             if val['addrs']:
                 for ipaddr in val['addrs']:
                     if ipaddr['type'] == libvirt.VIR_IP_ADDR_TYPE_IPV4:
