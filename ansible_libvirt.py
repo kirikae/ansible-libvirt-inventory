@@ -19,7 +19,7 @@ if len(domains) == 0:
 else:
     for domain in domains:
 
-        print("DOMAIN:{0}".format(domain.name()))
+        print("DOMAIN: {0}".format(domain.name()))
         ifaces = domain.interfaceAddresses(0) # Currently only retieves first IP, not all...
         for (name, val) in ifaces.items():
             if val['addrs']:
@@ -27,10 +27,10 @@ else:
                     if ipaddr['type'] == libvirt.VIR_IP_ADDR_TYPE_IPV4:
                         ipv4 = ipaddr['addr']
                         if ipv4 != None:
-                            print("IPv4 Address:{0}".format(ipv4))
+                            print("IPv4 Address: {0}".format(ipv4))
                     elif ipaddr['type'] == ibvirt.VIR_IP_ADDR_TYPE_IPV6:
                         ipv6 = ipaddr['addr']
                         if ipv6 != None:
-                            print("IPv6 Address:{0}".format(ipv6))
+                            print("IPv6 Address: {0}".format(ipv6))
 
 connection.close()
