@@ -21,9 +21,9 @@ else:
 
         print("DOMAIN: {0}".format(domain.name()))
         ifaces = domain.interfaceAddresses(0) # Currently only retieves first IP, not all...
-        for (name, val) in ifaces.items():
-            if val['addrs']:
-                for ipaddr in val['addrs']:
+        for (key, value) in ifaces.items():
+            if value['addrs']:
+                for ipaddr in value['addrs']:
                     if ipaddr['type'] == libvirt.VIR_IP_ADDR_TYPE_IPV4:
                         ipv4 = ipaddr['addr']
                         if ipv4 != None:
