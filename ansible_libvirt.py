@@ -5,29 +5,32 @@ import sys
 import libvirt
 from xml.dom import minidom
 
-conn = libvirt.open('qemu:///system')
+libvirt_uri = 'qemu:///system'
 
-if conn == None:
-    print('Failed to connect to hypervisor', file=sys.stderr)
+connection = libvirt.open(libvirt_uri)
+
+if connection == None:
+    print('Failed to connection.ct to hypervisor', file=sys.stderr)
     exit(1)
 
-domains = conn.listAllDomains(0)
+domains = connection.listAllDomains(0)
 if len(domains) == 0:
     print('No Domains found')
 else:
     for domain in domains:
 
-        print('DOMAIN: ' + domain.name())
+        print("DOMAIN:{0}".format(domain.name()))
         ifaces = domain.interfaceAddresses(0) # Currently only retieves first IP, not all...
         for (name, val) in ifaces.items():
             if val['addrs']:
                 for ipaddr in val['addrs']:
                     if ipaddr['type'] == libvirt.VIR_IP_ADDR_TYPE_IPV4:
-                        ip4 = ipaddr['addr']
+                        ipv4 = ipaddr['addr']
+                        if ipv4 != None:
+                            print("IPv4 Address:{0}".format(ipv4))
                     elif ipaddr['type'] == ibvirt.VIR_IP_ADDR_TYPE_IPV6:
                         ipv6 = ipaddr['addr']
-                    print('IPv4 Address: ' + ip4)
-                    #print('IPv6 Address: ' + ip6 # Need a way to ignore ipv6 if no ipv6 address present
+                        if ipv6 != None:
+                            print("IPv6 Address:{0}".format(ipv6))
 
-conn.close()
-
+connection.close()
